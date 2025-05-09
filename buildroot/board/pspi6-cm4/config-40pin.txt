@@ -1,0 +1,72 @@
+start_file=start4.elf
+fixup_file=fixup4.dat
+
+kernel=Image
+
+# Disable overscan assuming the display supports displaying the full resolution
+# If the text shown on the screen disappears off the edge, comment this out
+disable_overscan=1
+
+# Enable UART0 for serial console on ttyAMA0
+dtoverlay=miniuart-bt
+
+# enable RTC
+dtparam=i2c_vc=on
+dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi
+
+# enable 64bits support
+arm_64bit=1
+
+####################################
+
+# Don't show splash screen
+disable_splash=0
+
+# Enable I2C
+dtparam=i2c_arm=on
+
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+
+# Reduce I2C speed to avoid clock bug in Raspberry Pi I2C
+dtparam=i2c_baudrate=25000
+
+# Disable HDMI audio
+hdmi_ignore_edid_audio=1
+
+# Configure DPI signal
+framebuffer_width=800
+framebuffer_height=480
+enable_dpi_lcd=1
+display_default_lcd=1
+dpi_group=2
+dpi_mode=87
+dpi_output_format=503863
+
+over_voltage=-2
+
+####################################
+
+gpu_mem_256=128
+gpu_mem_512=256
+gpu_mem_1024=256
+
+# Set GPIO pins for 21-Bit DPI
+gpio=0=a2,np
+gpio=1=a2,np
+gpio=2=a0,np
+gpio=3=a0,np
+gpio=5-11=a2,np
+gpio=13-19=a2,np
+gpio=21-27=a2,np
+
+dpi_timings=800 0 8 4 8 480 0 8 4 8 0 0 0 60 0 32000000 6
+
+# Zero-specific settings
+dtparam=act_led_gpio=20
+dtoverlay=audiozero
+dtoverlay=gpio-poweroff,gpiopin=4,active_low=yes
+dtparam=act_led_activelow=no
+
+arm_freq_min=500
+core_freq_min=200

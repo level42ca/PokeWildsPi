@@ -1,0 +1,4 @@
+config BR2_PACKAGE_PSPI6
+	bool "PSPi6 support"
+	help
+	  Install PSPi6 boot config, kernel and overlays

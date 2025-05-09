@@ -1,0 +1,80 @@
+start_file=start4.elf
+fixup_file=fixup4.dat
+
+kernel=Image
+
+# Disable overscan assuming the display supports displaying the full resolution
+# If the text shown on the screen disappears off the edge, comment this out
+disable_overscan=1
+
+# Enable UART0 for serial console on ttyAMA0
+dtoverlay=miniuart-bt
+
+# enable RTC
+dtparam=i2c_vc=on
+dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi
+
+# enable 64bits support
+arm_64bit=1
+
+####################################
+
+# Don't show splash screen
+disable_splash=0
+
+# Enable I2C
+dtparam=i2c_arm=on
+
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+
+# Reduce I2C speed to avoid clock bug in Raspberry Pi I2C
+dtparam=i2c_baudrate=25000
+
+# Disable HDMI audio
+hdmi_ignore_edid_audio=1
+
+# Configure DPI signal
+framebuffer_width=800
+framebuffer_height=480
+enable_dpi_lcd=1
+display_default_lcd=1
+dpi_group=2
+dpi_mode=87
+dpi_output_format=503863
+
+over_voltage=-2
+
+####################################
+
+# Enable DRM VC4 V3D driver
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=1
+
+# Set GPIO pins for 24-Bit DPI Mode 7
+gpio=0=a2,np
+gpio=1=a2,np
+gpio=2=a0,np
+gpio=3=a0,np
+gpio=4-27=a2,np
+
+dpi_timings=800 0 8 4 8 480 0 8 4 8 0 0 0 60 0 25000000 6
+
+# Enable USB
+dtoverlay=dwc2,dr_mode=host
+
+# Disable WiFi and Bluetooth (Optional)
+#dtoverlay=pi3-disable-wifi
+#dtoverlay=pi3-disable-bt
+
+# Disables PCI-E link to prevent warning at boot
+dtoverlay=disable-pcie
+
+# Enable external PSP antenna
+dtparam=ant2
+
+# Set up CM4 audio pin
+dtoverlay=audiocm4
+
+arm_freq_min=300
+core_freq_min=200
